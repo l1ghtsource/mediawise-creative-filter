@@ -15,7 +15,7 @@
 - f1score_macro: 0.7184429627435494
 
 **Видео**: 
-- f1score_macro: 0.4157943474119945 (xclip features + cosine similarity)
-- f1score_macro: 0.3950383951103069 (xclip features + catboost)
+- f1score_macro: 0.42182361938447205 (xclip features + cosine similarity)
+- f1score_macro: 0.41438178427412037 (xclip features + catboost)
 
 ![pipe](scheme.jpg)
