@@ -10,9 +10,9 @@ Team Members:
 
 Презентация: [link](https://drive.google.com/)
 
-**Frontend**: https://gnu-misis.streamlit.app/
+Frontend: https://gnu-misis.streamlit.app/
 
-**API**: http://gnu.itatmisis.ru:8000/docs#/
+API: http://gnu.itatmisis.ru:8000/docs#/
 
 ## Задача трека "Креативный фильтр"
 
@@ -54,6 +54,11 @@ Team Members:
 
 ## Сервис
 
+Бэкэнд написан на FastAPI, фронтент на Streamlit, все решение развернуто на VK Cloud Remote Machine.
+
+Методы API:
 
 - */predict*: принимает видео или аудио на вход - возвращает класс
 - */predict_table*: принимает xlsx таблицу с advertisment id - возвращает аналогичную таблицу с предсказанными классами для каждого id
+
+Дэшборды:
