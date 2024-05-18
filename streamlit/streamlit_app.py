@@ -13,10 +13,10 @@ url_excel = 'http://gnu.itatmisis.ru:8000/predict_table'
 
 
 def main():
-    selectedPage = st.sidebar.selectbox("Выбрать страницу", ["Классификация", "Статистика"])
+    tab1, tab2 = st.tabs(["Классификация", "Статистика"])
 
-    if selectedPage == "Статистика":
-        st.header("""Распределения данных""")
+    with tab2:
+        st.header("""Распределение данных""")
 
         with st.form('1'):
             st.write('Динамика по отдельным категориям')
@@ -96,7 +96,7 @@ def main():
                         )
                     st.altair_chart(bar_chart, use_container_width=True)
 
-    if selectedPage == "Классификация":
+    with tab1:
         st.header("""Классификация""")
         uploaded_excel_file = st.file_uploader("Загрузите excel файл", accept_multiple_files=False)
         upload_excel_btn = st.button("обработать excel")
@@ -133,7 +133,7 @@ def main():
                 # st.write('Великая магическая машина определила файл ' + f'"{uploaded_file.name}" ' + 'как: ' + predict)
                 data_out[uploaded_file.name] = predict
             if video_url:
-                if "youtube" in video_url:
+                if "youtube" in video_url or "vk" in video_url:
                     import yt_dlp
                     ydl_opts = {
                         'ignoreerrors': True,
@@ -145,7 +145,12 @@ def main():
                     pass
 
                 if "vk" in video_url:
-                    pass
+                    import youtube_dl
+
+                    ydl_opts = { 'ignoreerrors': True }
+                    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                        ydl.download([video_url])
+                    
                 try:
                     for file in os.listdir():
                         if file.endswith(".mp4"):
@@ -170,7 +175,7 @@ def main():
                         file_name='output.xlsx',
                         mime='application/vnd.ms-excel'
                     )
-        st.markdown("![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)")
+        # st.markdown("![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)", unsafe_allow_html=False)
 
 
 try:
