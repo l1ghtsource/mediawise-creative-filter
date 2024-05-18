@@ -1,4 +1,7 @@
-**Сделано**: классификация рекламы по аудио-составляющей, пайплайн: rus --> audio2text (whisper-small) --> rubert-tiny --> label
+**Сделано**: 
+
+- классификация рекламы по аудио-составляющей, пайплайн: rus --> audio2text (whisper-small) --> rubert-tiny --> label
+- классификация рекламы по видео-составляющей, пайплайн: rus --> x-clip features extraction --> cosine similarity/catboost --> label
 
 **Метрики на тесте**: 
 
