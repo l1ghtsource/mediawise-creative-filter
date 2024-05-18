@@ -51,6 +51,7 @@ Team Members:
 ## Сервис
 
 **API**: http://gnu.itatmisis.ru:8000/docs#/
+
 **Frontend**: https://gnu-misis.streamlit.app/
 
 - /predict/: принимает видео или аудио на вход - возвращает класс
