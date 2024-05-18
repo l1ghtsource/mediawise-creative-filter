@@ -50,7 +50,7 @@ API: http://gnu.itatmisis.ru:8000/docs#/
 **XCLIP + CATBOOST**: 
 - f1score_macro: 0.41 (xclip features + catboost)
 
-Итоговое время инференса ~2мс.
+Итоговое время инференса ~2с.
 
 ## Сервис
 
