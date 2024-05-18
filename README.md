@@ -23,7 +23,7 @@ Team Members:
 
 ## Предложенное решение
 
-![pipe](scheme.jpg)
+![pipe](scheme.png)
 
 **API**: http://gnu.itatmisis.ru:8000/docs#/
 - /predict/: принимает видео или аудио на вход - возвращает класс
