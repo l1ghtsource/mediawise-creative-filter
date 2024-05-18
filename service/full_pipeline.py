@@ -14,7 +14,7 @@ def is_audio_file(filepath):
 
 
 def is_video_file(filepath):
-    video_extensions = ['.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.webm', '.mpeg', '.mpg', 'wbm']
+    video_extensions = ['.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.webm', '.mpeg', '.mpg', '.wbm']
     _, ext = os.path.splitext(filepath)
     return ext.lower() in video_extensions
 
