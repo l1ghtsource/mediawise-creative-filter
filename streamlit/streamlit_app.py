@@ -6,7 +6,11 @@ import altair as alt
 import requests
 import os
 import openpyxl
+import tempfile
+
 url = 'http://gnu.itatmisis.ru:8000/predict'
+url_excel = 'http://gnu.itatmisis.ru:8000/predict_table'
+
 
 def main():
     selectedPage = st.sidebar.selectbox("Выбрать страницу", ["Классификация", "Статистика"])
@@ -92,14 +96,32 @@ def main():
                         )
                     st.altair_chart(bar_chart, use_container_width=True)
 
-
     if selectedPage == "Классификация":
         st.header("""Классификация""")
-        data_out = {}
         uploaded_excel_file = st.file_uploader("Загрузите excel файл", accept_multiple_files=False)
+        upload_excel_btn = st.button("обработать excel")
+        if upload_excel_btn and uploaded_excel_file:
+            bytes_excel_data = uploaded_excel_file.read()
+            predict = requests.post(url_excel, files={'file': (uploaded_excel_file.name, bytes_excel_data)})
+            st.write(predict)
+            output = open('test.xlsx', 'wb')
+            output.write(predict.content)
+            output.close()
+
+            with open("test.xlsx", "rb") as file:
+                btn_excel = st.download_button(
+                        label="Скачать отчёт",
+                        data=file,
+                        file_name="test.xlsx",
+                        mime='application/vnd.ms-excel'
+                    )
+
+        
+        data_out = {}
         uploaded_files = st.file_uploader("Загрузите видео и аудио файлы", accept_multiple_files=True)
         video_url = st.text_input("url видео")
-        upload_btn = st.button("обработать")
+        upload_btn = st.button("обработать файлы")
+
         if upload_btn:
             for file in os.listdir():
                 if file.endswith(".mp4"):
@@ -107,8 +129,8 @@ def main():
             for uploaded_file in uploaded_files:
                 bytes_data = uploaded_file.read()
                 predict = requests.post(url, files={'file': (uploaded_file.name, bytes_data)}).json()['result']
-                st.write(predict)
-                st.write('Великая магическая машина определила файл ' + f'"{uploaded_file.name}" ' + 'как: ' + predict)
+                # st.write(predict)
+                # st.write('Великая магическая машина определила файл ' + f'"{uploaded_file.name}" ' + 'как: ' + predict)
                 data_out[uploaded_file.name] = predict
             if video_url:
                 if "youtube" in video_url:
@@ -128,18 +150,19 @@ def main():
                     for file in os.listdir():
                         if file.endswith(".mp4"):
                             predict = requests.post(url, files={'file': (file, open(file, 'rb'))}).json()['result']
-                            st.write(predict)
-                            if predict == None:
-                                st.warning('Не удалось скачать видео')
-                            else:
-                                st.write('великая машина определила файл' + f'{file}' + 'как:' + predict)
+                            data_out[file] = predict
+                            # st.write(predict)
+                            # if predict == None:
+                            #     st.warning('Не удалось скачать видео')
+                            # else:
+                            #     st.write('великая машина определила файл' + f'{file}' + 'как:' + predict)
                 except:
                     st.warning('Не удалось скачать видео')
-            import tempfile
-            output_df = pd.DataFrame(list(data_out.items()), columns=['Url', 'Category'])
+            output_df = pd.DataFrame(list(data_out.items()), columns=['File', 'Category'])
+            st.write(output_df)
             with tempfile.TemporaryDirectory() as tmp:
                 path = os.path.join(tmp, 'output.xlsx')
-                output_df.to_excel(path, engine="openpyxl")
+                output_df.to_excel(path, engine="openpyxl", index=False)
                 with open(path, 'rb') as file:
                     download = st.download_button(
                         label="Download data as Excel",
