@@ -67,3 +67,9 @@ API: http://gnu.itatmisis.ru:8000/docs#/
 - ноутбук с промптингом в llava: [тык](https://github.com/l1ghtsource/dnvflksmv-ddfnmd_dsf-xd1/blob/main/notebooks/LLava_Experiments.ipynb)
 
 Дэшборды:
+
+- Динамика по отдельным категориям
+- Динамика по отдельным брендам
+- Динамика по месяцам TRP
+- Динамика по месяцам инвестиций
+- Графики отрисовываются с помощью библиотеки altair
