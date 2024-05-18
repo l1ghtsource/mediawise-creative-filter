@@ -4,105 +4,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import altair as alt
 
-def main1():
-    page = st.sidebar.selectbox("Выбрать страницу", ["Тяжелые хвосты распределений", "Iris Dataset"])
-
-    if page == "Тяжелые хвосты распределений":
-        st.header("""Сгенерировать N случайных событий из распределения Фреше с функцией распределения:""")
-        st.latex(r'''    
-            F(x) = exp(-(\gamma x)^{-1/\gamma}1\{x>0\})
-            ''')
-        st.text("Для получения результата:")
-        st.markdown("* Сгенерируем N нормально распределенных случайных величин $U_i$ [0,1] (нулевое среднее и единичная диспресия).")
-        st.markdown("* Вычислим N cлучайных величин с распределением Фреше по формуле:")
-        st.latex(r'''    
-                    X_i=\dfrac{1}{\gamma}\left(-lnU_i)^{-\gamma}\right)
-                ''')
-        mu, sigma = 0, 1  # mean and standard deviation
-        gamma = st.slider('Желаемая гамма', 0.25, 2.25, 0.5, 0.25)
-        N = st.number_input("Желаемое N", 100, 10000, 10000)
-        U = np.abs(np.random.normal(mu, sigma, N))
-        X = 1 / gamma * (-np.log(U)) ** (-gamma)
-        X2 = X[X < 20]
-        fig, ax = plt.subplots()
-        count, bins, ignored = plt.hist(X2, 100, density=True)
-        plt.plot(bins,
-                 np.exp(- (gamma * bins) ** (-1 / gamma)) * (1 / gamma) * (gamma * bins) ** (-1 / gamma - 1) * gamma,
-                 linewidth=2, color='r')
-        st.pyplot(fig)
-        
-
 
 def main():
     selectedPage = st.sidebar.selectbox("Выбрать страницу", ["Статистика", "Классификация"])
 
     if selectedPage == "Статистика":
-        # energy_source = pd.DataFrame({
-        #     "EnergyType": ["Electricity","Gasoline","Natural Gas","Electricity","Gasoline","Natural Gas","Electricity","Gasoline","Natural Gas"],
-        #     "Price ($)":  [150,73,15,130,80,20,170,83,20],
-        #     "Date": ["2022-1-23", "2022-1-30","2022-1-5","2022-2-21", "2022-2-1","2022-2-1","2022-3-1","2022-3-1","2022-3-1"]
-        #     })
-        
-        # bar_chart = alt.Chart(energy_source).mark_bar().encode(
-        #         x="month(Date):O",
-        #         y="sum(Price ($)):Q",
-        #         color="EnergyType:N"
-        #     )
-        # st.altair_chart(bar_chart, use_container_width=True)
-
-        # Visualizing the data with stacked bar chart
-        # plt.figure(figsize=[15, 9])
-        # authors = ['Millisent Danielut', 'Deborah Tinn', 'Brendin Bracer',
-        #    'Aurel Newvell']
-        # python = [15, 21, 9, 25]
-        # postgreSQL = [7, 5, 24, 11]
-        # mongodb = [23, 17, 21, 15]
-
-        # # Creating a DataFrame from a dictionary
-        # blogs = pd.DataFrame({'Authors': authors, 'Python': python, 
-        #                     'PostgreSQL': postgreSQL, 'Mongodb': mongodb})
-
-        # # Set the width of the bars
-        # wd = 0.4
-        # x_pos = np.arange(len(blogs))
-
-        # # Plotting the multiple bar graphs on top on other
-        # plt.bar(x_pos, blogs.Python, color='r', width=wd, label='Python')
-        # plt.bar(x_pos, blogs.PostgreSQL, color='y', width=wd, label='PostgeSQL', 
-        #     bottom=blogs.Python)
-        # plt.bar(x_pos, blogs.Mongodb, color='c', width=wd, label='Mongodb', 
-        #     bottom=blogs.Python+blogs.PostgreSQL)
-
-        # # Add xticks
-        # plt.xticks(x_pos, blogs.Authors.values, fontsize=15)
-        # plt.yticks(fontsize=15)
-        # plt.title('The blogs posted by Authors', fontsize=20)
-        # plt.xlabel('Authors', fontsize=17)
-        # plt.ylabel('Blogs', fontsize=17)
-
-        # plt.legend(loc='upper left', fontsize=15)
-        # st.pyplot(plt)
-
-        # with st.form('4'):
-        #         st.write('Динамика по месяцам инвестиций')
-        #         selected_brand1 = st.multiselect(
-        #             "Выбрать бренды",
-        #                 (list(set(df_fulldata['Brand']))),
-        #                 placeholder="Select contact method...",
-        #             )
-        #         submitted = st.form_submit_button("Submit")
-        #         if submitted and selected_category:
-        #             bar_chart = alt.Chart(
-        #                 df_fulldata[
-        #                     df_dashboard['Advertiser'].isin(df_dashboard.drop(columns=['Brand', 'Media Type', 'Year', 'Month', 'Advertisement ID'])
-        #                     .groupby(['Advertiser'], as_index = False).agg({'Estimated cost RUB': 'sum'})
-        #                     .sort_values(by=['Estimated cost RUB'], ascending=False).head(10)['Advertiser'])]).mark_bar().encode(
-        #                     x="Advertiser:O",
-        #                     y="sum(Segment_num):Q",
-        #                     color="Segment_num:N"
-        #                 )
-        #             st.altair_chart(bar_chart, use_container_width=True)
-
         st.header("""Пример из приложения""")
 
         with st.form('1'):
@@ -185,9 +91,21 @@ def main():
 
 
     if selectedPage == "Классификация":
-        st.header("""Классификация рынка""")
-        st.write("будет скоро")
+        st.header("""Классификация""")
+        text = st.text_area(
+            "Text to analyze",
+            "",
+            )
+        uploaded_files = st.file_uploader("Choose a files", accept_multiple_files=True)
+        for uploaded_file in uploaded_files:
+            bytes_data = uploaded_file.read()
+            st.write("filename:", uploaded_file.name)
+            st.write(bytes_data)
+        upload_btn = st.button("обработать")
+        if upload_btn:
+            st.write("Предсказанный класс:" + st.session_state.classifier.predict(text))
         st.markdown("![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)")
+
 
 try:
     if st.session_state.first_load:
@@ -199,6 +117,7 @@ except:
     st.session_state.df_dashboard = df
     st.session_state.df_segments_data = pd.read_csv("train_segments.csv", delimiter=',')
     st.session_state.df_fulldata = pd.merge(st.session_state.df_dashboard, st.session_state.df_segments_data, on='Advertisement ID', how='outer')
+
 
 df_dashboard = st.session_state.df_dashboard
 df_segments_data = st.session_state.df_segments_data
