@@ -36,15 +36,15 @@ Team Members:
 ## Метрики:
 
 **BERT**:
-- precision: 0.7452538178050809
-- recall: 0.7289481034579074
-- f1score_macro: 0.7184429627435494
+- precision: 0.75
+- recall: 0.73
+- f1score_macro: 0.72
 
 **XCLIP + COSINE SIMILARITY**: 
-- f1score_macro: 0.42182361938447205 (xclip features + cosine similarity)
+- f1score_macro: 0.42 (xclip features + cosine similarity)
 
 **XCLIP + CATBOOST**: 
-- f1score_macro: 0.41438178427412037 (xclip features + catboost)
+- f1score_macro: 0.41 (xclip features + catboost)
 
 Итоговое время инференса ~2мс.
 
