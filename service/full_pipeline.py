@@ -65,3 +65,35 @@ def full_pipeline(file):
             return pred
     else:
         return None
+
+
+label2id = {v: k for k, v in id2label.items()}
+
+
+def lbl2id(lbl):
+    return label2id[lbl]
+
+
+def table_pipe(df_path):
+    all_files = []
+    
+    for root, dirs, files in os.walk('service/3'):
+        for file in files:
+            full_path = os.path.join(root, file)
+            all_files.append(full_path)
+            
+    id_to_path = {}
+    for file_path in all_files:
+        file_id = int(file_path.split('/')[-1].split('.')[0])
+        id_to_path[file_id] = file_path
+
+    def get_path(ad_id):
+        return id_to_path.get(ad_id, None)
+        
+    df = pd.read_excel(df_path)
+    df['path'] = df['Advertisement ID'].apply(get_path)
+    
+    df['Segment_num'] = df['path'].apply(full_pipeline)
+    df['Segment_num'] = df['Segment_num'].apply(lbl2id)
+    
+    return pd.concat([df['Advertisement ID'], df['Segment_num']], axis=1)
