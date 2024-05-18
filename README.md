@@ -10,6 +10,9 @@ Team Members:
 
 Презентация: [link](https://drive.google.com/)
 
+**Frontend**: https://gnu-misis.streamlit.app/
+**API**: http://gnu.itatmisis.ru:8000/docs#/
+
 ## Задача трека "Креативный фильтр"
 
 На основе имеющихся данных и разметки необходимо разработать модель, которая предсказывает то, к какому сегменту (*Segment_num*) относится заданный креатив (*Advertisement ID*). При разработке решения не забывайте про отраслевые критерии.
@@ -50,9 +53,6 @@ Team Members:
 
 ## Сервис
 
-**API**: http://gnu.itatmisis.ru:8000/docs#/
-
-**Frontend**: https://gnu-misis.streamlit.app/
 
 - */predict*: принимает видео или аудио на вход - возвращает класс
 - */predict_table*: принимает xlsx таблицу с advertisment id - возвращает аналогичную таблицу с предсказанными классами для каждого id
