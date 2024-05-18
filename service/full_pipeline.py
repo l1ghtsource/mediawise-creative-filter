@@ -65,6 +65,3 @@ def full_pipeline(file):
             return pred
     else:
         return None
-    
-    
-print(full_pipeline("service/2217754.wbm"))
