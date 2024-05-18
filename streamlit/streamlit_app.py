@@ -96,7 +96,8 @@ def main():
     if selectedPage == "Классификация":
         st.header("""Классификация""")
         data_out = {}
-        uploaded_files = st.file_uploader("Choose a files", accept_multiple_files=True)
+        uploaded_excel_file = st.file_uploader("Загрузите excel файл", accept_multiple_files=False)
+        uploaded_files = st.file_uploader("Загрузите видео и аудио файлы", accept_multiple_files=True)
         video_url = st.text_input("url видео")
         upload_btn = st.button("обработать")
         if upload_btn:
@@ -118,11 +119,11 @@ def main():
                     }
                     with yt_dlp.YoutubeDL(ydl_opts) as url_bin_f:
                         error_code = url_bin_f.download(video_url)
-                # if "rutube" in video_url:
-                #     pass
+                if "rutube" in video_url:
+                    pass
 
-                # if "vk" in video_url:
-                #     pass
+                if "vk" in video_url:
+                    pass
                 try:
                     for file in os.listdir():
                         if file.endswith(".mp4"):
