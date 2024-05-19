@@ -41,7 +41,7 @@ API: http://gnu.itatmisis.ru:8000/docs#/
 
 Ноутбуки с тестированием идей и разработкой решения в [notebooks](https://github.com/l1ghtsource/mediawise-creative-filter/blob/main/notebooks/)
 
-## Метрики:
+## Метрики
 
 **BERT**:
 - precision: 0.75
