@@ -112,5 +112,6 @@ def table_pipe(df_path):
     df['Segment_num'] = df['Segment_num'].apply(safe_lbl2id)
     
     df = df.dropna(subset=['Segment_num'])
+    df = df.drop(['path'], axis=1)
     
     return df
