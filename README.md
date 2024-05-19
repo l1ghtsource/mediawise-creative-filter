@@ -64,7 +64,7 @@ API: http://gnu.itatmisis.ru:8000/docs#/
 Дополнительные фичи:
 
 - возможность вместо загрузки видео указать ссылку на YouTube/VK Видео
-- ноутбук с промптингом в llava: [тык](https://github.com/l1ghtsource/dnvflksmv-ddfnmd_dsf-xd1/blob/main/notebooks/LLava_Experiments.ipynb)
+- ноутбук с промптингом в llava: [тык](https://github.com/l1ghtsource/mediawise-creative-filter/blob/main/notebooks/LLava_Experiments.ipynb)
 
 Дэшборды:
 
