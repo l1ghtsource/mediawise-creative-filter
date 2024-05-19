@@ -77,7 +77,7 @@ def lbl2id(lbl):
 def table_pipe(df_path):
     all_files = []
     
-    for root, dirs, files in os.walk('service/3'):
+    for root, dirs, files in os.walk('test/data'):
         for file in files:
             full_path = os.path.join(root, file)
             all_files.append(full_path)
@@ -90,10 +90,27 @@ def table_pipe(df_path):
     def get_path(ad_id):
         return id_to_path.get(ad_id, None)
         
-    df = pd.read_excel(df_path)
+    df = pd.read_csv(df_path)
     df['path'] = df['Advertisement ID'].apply(get_path)
     
-    df['Segment_num'] = df['path'].apply(full_pipeline)
-    df['Segment_num'] = df['Segment_num'].apply(lbl2id)
+    def safe_full_pipeline(path):
+        try:
+            return full_pipeline(path)
+        except Exception as e:
+            print(f"Error processing {path} with full_pipeline: {e}")
+            return None
     
-    return pd.concat([df['Advertisement ID'], df['Segment_num']], axis=1)
+    df['Segment_num'] = df['path'].apply(safe_full_pipeline)
+    
+    def safe_lbl2id(segment_num):
+        try:
+            return lbl2id(segment_num)
+        except Exception as e:
+            print(f"Error processing segment number {segment_num} with lbl2id: {e}")
+            return None
+
+    df['Segment_num'] = df['Segment_num'].apply(safe_lbl2id)
+    
+    df = df.dropna(subset=['Segment_num'])
+    
+    return df
