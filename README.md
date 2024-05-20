@@ -8,7 +8,7 @@ Team Members:
 3) **Миронов Егор** - Frontend, Backend
 4) **Москвин Владимир** - Product Manager & Designer
 
-Презентация: [link](https://drive.google.com/)
+Презентация: [link](https://drive.google.com/file/d/1I5XyvgIcMo1YgpWfYVRVkxbfKtupHjXb/view?usp=sharing)
 
 Frontend: https://gnu-misis.streamlit.app/
 
